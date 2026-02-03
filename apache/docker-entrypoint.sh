@@ -193,9 +193,39 @@ if  [[ "$1" == apache2* || "$1" == php-fpm || "$1" == bin* ]]; then
     echo "\$config['des_key'] = getenv('ROUNDCUBEMAIL_DES_KEY');" >> config/config.docker.inc.php
   fi
 
+  if [ ! -z "${ROUNDCUBEMAIL_OAUTH_PROVIDER}" ]; then
+    echo "\$config['oauth_provider'] = '${ROUNDCUBEMAIL_OAUTH_PROVIDER}';" >> config/config.docker.inc.php
+  fi
+  if [ ! -z "${ROUNDCUBEMAIL_OAUTH_PROVIDER_NAME}" ]; then
+    echo "\$config['oauth_provider_name'] = '${ROUNDCUBEMAIL_OAUTH_PROVIDER_NAME}';" >> config/config.docker.inc.php
+  fi
+  if [ ! -z "${ROUNDCUBEMAIL_OAUTH_CLIENT_ID}" ]; then
+    echo "\$config['oauth_client_id'] = '${ROUNDCUBEMAIL_OAUTH_CLIENT_ID}';" >> config/config.docker.inc.php
+  fi
   if [ ! -z "${ROUNDCUBEMAIL_OAUTH_CLIENT_SECRET}" ]; then
     echo "\$config['oauth_client_secret'] = '${ROUNDCUBEMAIL_OAUTH_CLIENT_SECRET}';" >> config/config.docker.inc.php
   fi
+  if [ ! -z "${ROUNDCUBEMAIL_OAUTH_AUTH_URI}" ]; then
+    echo "\$config['oauth_auth_uri'] = '${ROUNDCUBEMAIL_OAUTH_AUTH_URI}';" >> config/config.docker.inc.php
+  fi
+  if [ ! -z "${ROUNDCUBEMAIL_OAUTH_TOKEN_URI}" ]; then
+    echo "\$config['oauth_token_uri'] = '${ROUNDCUBEMAIL_OAUTH_TOKEN_URI}';" >> config/config.docker.inc.php
+  fi
+  if [ ! -z "${ROUNDCUBEMAIL_OAUTH_IDENTITY_URI}" ]; then
+    echo "\$config['oauth_identity_uri'] = '${ROUNDCUBEMAIL_OAUTH_IDENTITY_URI}';" >> config/config.docker.inc.php
+  fi
+  if [ ! -z "${ROUNDCUBEMAIL_OAUTH_SCOPE}" ]; then
+    echo "\$config['oauth_scope'] = '${ROUNDCUBEMAIL_OAUTH_SCOPE}';" >> config/config.docker.inc.php
+  fi
+  if [ ! -z "${ROUNDCUBEMAIL_OAUTH_LOGIN_REDIRECT}" ]; then
+    [[ $ROUNDCUBEMAIL_OAUTH_LOGIN_REDIRECT != "true" ]] && ROUNDCUBEMAIL_OAUTH_LOGIN_REDIRECT=false;
+    echo "\$config['oauth_login_redirect'] = ${ROUNDCUBEMAIL_OAUTH_LOGIN_REDIRECT};" >> config/config.docker.inc.php
+  fi
+  if [ ! -z "${ROUNDCUBEMAIL_USE_HTTPS}" ]; then
+    [[ $ROUNDCUBEMAIL_USE_HTTPS != "true" ]] && ROUNDCUBEMAIL_USE_HTTPS=false;
+    echo "\$config['use_https'] = ${ROUNDCUBEMAIL_USE_HTTPS};" >> config/config.docker.inc.php
+  fi
+
 
   if [ ! -z "${ROUNDCUBEMAIL_SPELLCHECK_URI}" ]; then
     echo "\$config['spellcheck_engine'] = 'googie';" >> config/config.docker.inc.php
